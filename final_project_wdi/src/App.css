@@ -1,12 +1,11 @@
 body {
-  background: rgb(24,10,68);
-  background: linear-gradient(90deg, rgba(24,10,68,0.8981967787114846) 4%, rgba(59,77,142,0.9850315126050421) 40%, rgba(184,203,246,0.9402135854341737) 78%);
-
+  background: rgb(255,227,176);
+  background: linear-gradient(90deg, rgba(255,227,176,0.9122023809523809) 3%, rgba(210,207,169,1) 12%, rgba(163,187,161,1) 24%, rgba(111,164,152,1) 38%, rgba(51,119,120,1) 52%, rgba(19,95,103,1) 66%, rgba(16,75,71,1) 81%, rgba(14,61,49,1) 93%);
 }
 
 #AppContainer {
   margin: 5vh;
   background-color: rgb(254, 255, 254);
-  height: 85vh;
+  height: 100vh;
   text-align: center;
 }
