@@ -24,32 +24,9 @@ class RegisterContainer extends Component {
 
   handleSubmit = (e) => {
 		e.preventDefault();
-		this.register(this.state.first_name, this.state.last_name, this.state.username, this.state.password, this.state.birth_date)
+		this.props.register(this.state.first_name, this.state.last_name, this.state.username, this.state.password, this.state.birth_date)
 	};
 
-  register = async (first_name, last_name, username, password, birth_date) => {
-    const userRegister = await fetch('http://localhost:9292/user/register', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        first_name: first_name,
-        last_name: last_name,
-        username: username,
-        password: password,
-        birth_date: birth_date
-      })
-    })
-    const registrationResponse = await userRegister.json();
-    if(registrationResponse.success){
-      this.setState({
-        loggedIn: true,
-      })
-    } else {
-      this.setState({
-        loginError: registrationResponse.message
-      })
-    }
-  };
 
   render() {
     return (
@@ -71,7 +48,7 @@ class RegisterContainer extends Component {
         </div>
       );
     }
-  }
+  };
 
 
 export default RegisterContainer;

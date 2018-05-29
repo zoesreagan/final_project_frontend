@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import RegisterContainer from './RegisterContainer';
 import LoginContainer from './LoginContainer';
 import LearnMoreContainer from './LearnMoreContainer';
+import UserFormContainer from './UserFormContainer';
 
 class App extends Component {
   constructor(){
@@ -28,31 +29,18 @@ class App extends Component {
         password: password
       })
     })
+
     const loginResponse = await userLogin.json()
     if(loginResponse.success){
       this.setState({
         loggedIn: true,
       })
-
-      // .then((user) => {
-      //   this.setState({
-      //     // user_id: user.found_user.id,
-      //     // first_name: user.found_user.first_name,
-      //     // last_name: user.found_user.last_name,
-      //     // username: user.found_user.username,
-      //     // birth_date: user.found_user.birth_date
-      //   })
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // })
     } else {
       this.setState({
         loginError: loginResponse.message
       })
     }
-  }
-
+  };
 
   register = async (first_name, last_name, username, password, birth_date) => {
     const userRegister = await fetch('http://localhost:9292/user/register', {
@@ -76,8 +64,7 @@ class App extends Component {
         loginError: registrationResponse.message
       })
     }
-};
-
+  };
 
   render() {
     return (
@@ -103,15 +90,35 @@ class App extends Component {
                 </div>
 
               </div>
+              <div className="row">
+                <div className="twelve coumns">
+
+                </div>
+              </div>
             </div>
 
-
-
               <Switch>
-                  <Route exact path="/user/register" component={ RegisterContainer } />
-                  <Route exact path="/user/login" component={ LoginContainer } />
-                  <Route exat path="/user/more_info" component={ LearnMoreContainer} />
+
+                  <Route exact path="/user/register" render={() => (
+                    this.state.loggedIn ? (
+                      <Redirect to ='/form' />
+                    ) : (
+                      <RegisterContainer register={this.register} />
+                    )
+                  )} />
+
+                  <Route exact path="/user/login" render={() => (
+                    this.state.loggedIn ? (
+                      <Redirect to ='/form' />
+                    ) : (
+                      <LoginContainer login={this.login} />
+                    )
+                  )} />
+
+                  <Route exact path="/form" component={ UserFormContainer } />
+                  <Route exact path="/user/more_info" component={ LearnMoreContainer } />
               </Switch>
+
         </div>
       </div>
     );

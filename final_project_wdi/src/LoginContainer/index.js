@@ -20,42 +20,21 @@ class LoginContainer extends Component {
 
   handleSubmit = (e) => {
 		e.preventDefault();
-		this.login( this.state.username, this.state.password)
-	};
+		this.props.login(this.state.username, this.state.password)
 
-  login = async (username, password) => {
-    const userLogin = await fetch('http://localhost:9292/user/login', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        username: username,
-        password: password
+      .then((user) => {
+        this.setState({
+          user_id: user.found_user.id,
+          first_name: user.found_user.first_name,
+          last_name: user.found_user.last_name,
+          username: user.found_user.username,
+          birth_date: user.found_user.birth_date
+        })
       })
-    })
-    const loginResponse = await userLogin.json()
-    if(loginResponse.success){
-      this.setState({
-        loggedIn: true,
+      .catch((err) => {
+        console.log(err);
       })
-
-      // .then((user) => {
-      //   this.setState({
-      //     // user_id: user.found_user.id,
-      //     // first_name: user.found_user.first_name,
-      //     // last_name: user.found_user.last_name,
-      //     // username: user.found_user.username,
-      //     // birth_date: user.found_user.birth_date
-      //   })
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // })
-    } else {
-      this.setState({
-        loginError: loginResponse.message
-      })
-    }
-  };
+    };
 
   render() {
     return (
@@ -70,7 +49,7 @@ class LoginContainer extends Component {
             	</form>
             </div>
           </div>
-            {this.props.loginError ==! '' ? <p>{this.props.loginError}</p> : null}
+            {/* {this.props.loginError ==! '' ? <p>{this.props.loginError}</p> : null} */}
         </div>
       );
     }
