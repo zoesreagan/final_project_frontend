@@ -24,11 +24,11 @@ class LoginContainer extends Component {
 
       .then((user) => {
         this.setState({
-          user_id: user.found_user.id,
-          first_name: user.found_user.first_name,
-          last_name: user.found_user.last_name,
-          username: user.found_user.username,
-          birth_date: user.found_user.birth_date
+          user_id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          username: user.username,
+          birth_date: user.birth_date
         })
       })
       .catch((err) => {
@@ -49,7 +49,7 @@ class LoginContainer extends Component {
             	</form>
             </div>
           </div>
-            {/* {this.props.loginError ==! '' ? <p>{this.props.loginError}</p> : null} */}
+            {this.props.loginError ==! '' ? <p>{this.props.loginError}</p> : null}
         </div>
       );
     }

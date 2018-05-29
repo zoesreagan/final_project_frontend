@@ -62,6 +62,7 @@ class App extends Component {
     } else {
       this.setState({
         loginError: registrationResponse.message
+
       })
     }
   };
@@ -111,7 +112,7 @@ class App extends Component {
                     this.state.loggedIn ? (
                       <Redirect to ='/form' />
                     ) : (
-                      <LoginContainer login={this.login} />
+                      <LoginContainer login={this.login} loginError={this.state.loginError} />
                     )
                   )} />
 
