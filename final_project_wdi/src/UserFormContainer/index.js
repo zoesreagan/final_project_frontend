@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import "./style.css"
-import AddNewForm from './NewFormContainer'
+import "./style.css";
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
+import AddNewForm from './AddNewFormContainer'
 
 class UserFormContainer extends Component {
   constructor(){
@@ -12,59 +13,47 @@ class UserFormContainer extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getFormByUser()
-    .then((response) => {
-      this.setState({form: response.form})
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    this.getFormList()
+    console.log(this.state, " this is state right now")
   }
+
 
   getFormByUser = async () => {
     const formJson = await fetch('http://localhost:9292/form', {
       credentials: 'include'
     });
     console.log(formJson);
-    const form = await formJson.json();
-    console.log(form, 'this is form from getFormByUser');
-    return form;
+    const forms = await formJson.json();
+    console.log(forms, 'this is form from getFormByUser');
+
+    // return form;
+    this.getFormList()
+    this.setState({
+      form: forms
+      // return form;
+    })
+
+    console.log(this.state.form, " this is state after getFormByUser")
   }
 
 
-  createForm = async (dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine) => {
-    const form = await fetch('http://localhost:9292', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        dateCreated: dateCreated,
-        responseOne: responseOne,
-        responseTwo: responseTwo,
-        responseThree: responseThree,
-        responseFour: responseFour,
-        responseFive: responseFive,
-        responseSix: responseSix,
-        responseSeven: responseSeven,
-        responseEight: responseEight,
-        responseNine: responseNine
-      })
-    });
+  deleteForm = async (e) => {
+		e.preventDefault();
+		const id = parseInt(e.target.parentNode.id)
+		const form = await fetch('http://localhost:9292/' + id, {
+			method: "DELETE",
+			credentials: 'include'
+		})
 
-    const formParsed = await form.json();
-    console.log(formParsed);
-    this.getFormByUser()
-    .then((response) => {
-      this.setState({form: response.form})
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-
-  render(){
-
+		this.setState({
+			form: this.state.form.filter((form) => {
+				return form.id != id
+			})
+		})
+	}
+  getFormList = async () => {
     const formList = this.state.form.map((form, i) => {
       return <ul className="formList" id={form.id} key={i}>
         <li>Date Created: {form.date_created}</li>
@@ -77,18 +66,42 @@ class UserFormContainer extends Component {
         <li>{form.response_7}</li>
         <li>{form.response_8}</li>
         <li>{form.response_9}</li>
+        <button onClick={this.deleteForm}>Delete Form</button>
       </ul>
     })
+  }
 
+
+  render(){
+    // const formList = this.state.form.map((form, i) => {
+    //   return <ul className="formList" id={form.id} key={i}>
+    //     <li>Date Created: {form.date_created}</li>
+    //     <li>{form.response_1}</li>
+    //     <li>{form.response_2}</li>
+    //     <li>{form.response_3}</li>
+    //     <li>{form.response_4}</li>
+    //     <li>{form.response_5}</li>
+    //     <li>{form.response_6}</li>
+    //     <li>{form.response_7}</li>
+    //     <li>{form.response_8}</li>
+    //     <li>{form.response_9}</li>
+    //     <button onClick={this.deleteForm}>Delete Form</button>
+    //   </ul>
+    // })
     return(
     <div className="container">
       <div className="row">
         <div className="twelve columns">
           <h3>Welcome back</h3>
           <div id="formList">
-                {formList}
+                {this.formList}
+              </div>
+
+          <div className="row">
+            <div className="twelve coulumns">
+              <button><Link to='/form/new'>Start New Form</Link></button>
+            </div>
           </div>
-          <AddNewForm />
         </div>
       </div>
     </div>
