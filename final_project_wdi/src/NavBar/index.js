@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
+import {  Route, Link, Switch } from 'react-router-dom';
 
 class Navbar extends Component {
   constructor(){
     super();
     this.state = {
-      logout: false
+      logout: false,
     }
   }
 
@@ -14,18 +14,22 @@ class Navbar extends Component {
     return (
         <div className="container">
           <div className="row">
+            <div className="three columns">
+              <button onClick={this.props.openModal}>Learn More</button>
+            </div>
 
-            <div className="four columns">
+
+            <div className="three columns">
               <button className="button button-primary" onClick={this.props.navigateToIndex}>Home</button>
             </div>
 
 
-            <div className="four columns">
+            <div className="three columns">
                   <button className="button button-primary" onClick={this.props.renderAddNewUserForm}>Create New Form</button>
             </div>
 
 
-            <div className="four columns">
+            <div className="three columns">
               <button className="button button" onClick={this.props.logout}>Logout</button>
             </div>
 

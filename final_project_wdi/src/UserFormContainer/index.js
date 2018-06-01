@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import "./style.css";
 // import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import AddNewForm from './AddNewFormContainer';
-import FormIndex from './FormIndex'
+import FormIndex from './FormIndex';
+import EditForm from './EditFormContainer'
 
 class UserFormContainer extends Component {
   constructor(){
@@ -10,7 +11,7 @@ class UserFormContainer extends Component {
     this.state={
       form: [],
       addedForm: '',
-      // formToEdit: '',
+      formToEdit: ''
     }
   }
 
@@ -58,13 +59,35 @@ class UserFormContainer extends Component {
         response_8: responseEight,
         response_9: responseNine
       })
-    });
+    })
+  }
 
-    const formParsed = await form.json();
-    console.log(formParsed, "this is formParsed");
+    editForm = async (dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine) => {
+      const id = this.props.editedFormId
+      const form = await fetch('http://localhost:9292/form', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({
+          date_created: dateCreated,
+          response_1: responseOne,
+          response_2: responseTwo,
+          response_3: responseThree,
+          response_4: responseFour,
+          response_5: responseFive,
+          response_6: responseSix,
+          response_7: responseSeven,
+          response_8: responseEight,
+          response_9: responseNine
+        })
+      })
+
+
+    const response = await form.json();
+    console.log(response);
+    this.props.closeEditTrip()
     this.getFormByUser()
     .then((response) => {
-      console.log(this.state, "this is state in getFormByUser");
+
       this.setState({form: response.form})
       }
     )
@@ -87,41 +110,34 @@ class UserFormContainer extends Component {
 			})
 		})
 	}
-  // getFormList = async () => {
-  //   const formList = this.state.form.map((form, i) => {
-  //     return <ul className="formList" id={form.id} key={i}>
-  //       <li>Date Created: {form.date_created}</li>
-  //       <li>{form.response_1}</li>
-  //       <li>{form.response_2}</li>
-  //       <li>{form.response_3}</li>
-  //       <li>{form.response_4}</li>
-  //       <li>{form.response_5}</li>
-  //       <li>{form.response_6}</li>
-  //       <li>{form.response_7}</li>
-  //       <li>{form.response_8}</li>
-  //       <li>{form.response_9}</li>
-  //       <button onClick={this.deleteForm}>Delete Form</button>
-  //     </ul>
-  //   })
-  // }
 
 
   render(){
     return(
-      // <div className="container">
-      //   <div className="row">
-      //     <div className="eight columns">
-              <div>{this.props.showNewForm ?
+      <div className="container">
+        <div className="row">
+          <div className="twelve columns">
+              <div>
+                {this.props.showNewForm ?
                 <AddNewForm addedForm={this.state.addedForm} createForm={this.createForm} />
-                 :
-                <FormIndex  form={this.state.form} deleteForm={this.deleteForm}/>
+                 : <div>
+                   {this.props.showEditForm ?
+                   <EditForm editForm={this.editForm} formToEdit={this.props.formToEdit} />
+                   : <div>
+                     <FormIndex form={this.state.form} deleteForm={this.deleteForm} />
+                  </div>
                 }
+                 </div>
+               }
                </div>
 
+           </div>
+         </div>
+       </div>
 
     )
   }
-
 }
+
 
 export default UserFormContainer;

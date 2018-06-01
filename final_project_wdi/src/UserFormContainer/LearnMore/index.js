@@ -1,0 +1,36 @@
+import React, {Component} from "react";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Input, Container } from 'reactstrap';
+
+const LearnMoreModal = (props) => {
+  return (
+    <Container>
+      <Modal isOpen={this.props.openModal} className={this.props.className}>
+
+        <ModalHeader toggle={this.toggle}>
+						<h2>More Information</h2>
+						<Button color="secondary" onClick={this.props.closeModal}>Cancel</Button>
+					</ModalHeader>
+
+          <ModalBody>
+            <div className="container">
+              <div className="row">
+                <div className="twleve columns">
+                  <p>Over the years of their diagnosis, people with dementia related to Alzheimer's Disease, Parkinson's Disease and other neurological conditions
+                    lose their memory and completely lose the ability to understand what's
+                    going on around them.</p>
+                    <h5><em>There is no known cure for dementia.</em></h5>
+                    <h5>One of the most important questions to consider is: </h5>
+                    <h4>What kind of medical care would you want if
+                        you were to develop worsening dementia?</h4>
+                </div>
+              </div>
+            </div>
+          </ModalBody>
+        </Modal>
+    </Container>
+
+  )
+}
+
+
+export default LearnMoreModal;

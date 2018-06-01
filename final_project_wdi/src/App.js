@@ -1,31 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
-import { withRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-// import RegisterContainer from './RegisterContainer';
-// import LoginContainer from './LoginContainer';
-// import LearnMoreContainer from './LearnMoreContainer';
+import LearnMoreModal from './UserFormContainer/LearnMore';
 import UserFormContainer from './UserFormContainer';
 import Navbar from './NavBar';
 import LoginRegister from './LoginRegister'
 
-// import LandingPage from './LandingPage'
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
-
-    loggedIn: false,
     loggedIn: false,
     loginError: '',
     user_id: '',
     first_name: '',
     username: '',
-    openModal: false,
     formShow: false,
     formToShow: [],
-    // birth_date: '',
-
+    showNewForm: '',
+    editedFormId: '',
+    tripToEdit: ''
     }
   }
 
@@ -105,7 +99,9 @@ class App extends Component {
     this.setState({
       showNewForm: true,
       showFormIndex: false,
-      // showEditForm: false
+      showEditForm: false,
+      showMoreInfo: false,
+      openModal: false
     })
   }
 
@@ -114,10 +110,57 @@ class App extends Component {
       showNewForm: false,
       formShow: false,
       showEditForm: false,
-      // showFormIndex: true
+      showFormIndex: true,
+      showMoreInfo: false,
+      openModal: false
     })
   };
 
+
+  openModal = (e) => {
+    this.setState({
+      showNewForm: false,
+      showFormIndex: false,
+      showEditForm: false,
+      showMoreInfo: false,
+      openModal: true
+    })
+  };
+
+  closeModal = (e) => {
+      this.setState({
+        openModal: false
+      })
+    };
+
+    renderEditForm = async (e) => {
+    const id = e.currentTarget.parentNode.id;
+
+    const formJson = await fetch('http://localhost:9292/form/' + id, {
+      credentials: 'include'
+    });
+    const form = await formJson.json();
+    this.setState({
+      showEditForm: true,
+      showNewForm: false,
+      showFormIndex: false,
+      editedFormId: id,
+      formToEdit: form
+    });
+  }
+
+    formToEdit = async () => {
+    const id = this.state.editedFormId;
+
+    const formJson = await fetch('http://localhost:9292/form/' + id, {
+      credentials: 'include'
+    });
+
+    const form = await formJson.json();
+    this.setState({
+      formToEdit: form
+    })
+  }
 
   render(){
 
@@ -139,9 +182,10 @@ class App extends Component {
 
               <div className="row">
                 <div className="twelve columns">
-                  <Navbar renderAddNewUserForm={this.renderAddNewUserForm} showNewForm={this.state.showNewForm} navigateToIndex={this.navigateToIndex} logout={this.logout}/>
+                  <Navbar renderAddNewUserForm={this.renderAddNewUserForm} showNewForm={this.state.showNewForm} navigateToIndex={this.navigateToIndex} openModal={this.openModal} logout={this.logout}/>
+                  </div>
                 </div>
-              </div>
+
 
               <div className="row">
                 <div className="twelve columns">
@@ -153,8 +197,8 @@ class App extends Component {
               </div>
 
                 <div className="row">
-                  <div className="eight columns">
-                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} />
+                  <div className="twelve columns">
+                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} formToEdit={this.state.formToEdit} renderEditForm={this.renderEditForm}/>
                   </div>
                 </div>
               </div>
@@ -163,40 +207,12 @@ class App extends Component {
             }
           </div>
 
+
         </div>
       )
 
     }
 
   }
-            {/* <button><Link to = '/welcome'>Get Started</Link></button> */}
-              {/* <Switch>
-
-
-                  <Route exact path="/user/register" render={() => (
-                    this.state.loggedIn ? (
-                      <Redirect to ='/form' />
-                    ) : (
-                      <RegisterContainer register={this.register} />
-                    )
-                  )} />
-
-                  <Route exact path="/user/login" render={() => (
-                    this.state.loggedIn ? (
-                      <Redirect to ='/form' />
-                    ) : (
-                      <LoginContainer login={this.login} loginError={this.state.loginError} />
-                    )
-                  )} />
-
-                  <Route exact path="/welcome" render={ (props) => <LandingPage {...props} login={this.login} register={this.register} /> } />
-
-                  <Route exact path="/form" render={ (props) => <UserFormContainer {...props} /> } />
-
-                  <Route exact path="/user/more_info" component={ LearnMoreContainer } />
-
-                  <Route exact path="/form/new" render={ (props) => <AddNewForm {...props} createForm={this.createForm} /> } />
-
-              </Switch> */}
 
 export default App;
