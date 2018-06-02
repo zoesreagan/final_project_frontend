@@ -19,7 +19,7 @@ class App extends Component {
     formToShow: [],
     showNewForm: '',
     editedFormId: '',
-    tripToEdit: '',
+    formToEdit: '',
     showNewForm: false,
     showFormIndex: true,
     showEditForm: false,
@@ -128,23 +128,7 @@ class App extends Component {
       })
     };
 
-    renderEditForm = async (e) => {
-    const id = e.currentTarget.parentNode.id;
-
-    const formJson = await fetch('http://localhost:9292/form/' + id, {
-      credentials: 'include'
-    });
-    const form = await formJson.json();
-    this.setState({
-      showEditForm: true,
-      showNewForm: false,
-      showFormIndex: false,
-      editedFormId: id,
-      formToEdit: form
-    });
-  }
-
-    formToEdit = async () => {
+  getFormToEdit = async () => {
     const id = this.state.editedFormId;
 
     const formJson = await fetch('http://localhost:9292/form/' + id, {
@@ -156,6 +140,24 @@ class App extends Component {
       formToEdit: form
     })
   }
+
+  renderEditForm = async (e) => {
+    const id = e.currentTarget.parentNode.id;
+    console.log(id, "<------THIS IS ID");
+
+    const formJson = await fetch('http://localhost:9292/form/' + id, {
+      credentials: 'include'
+  });
+
+  const form = await formJson.json();
+  this.setState({
+    showEditForm: true,
+    showNewForm: false,
+    showFormIndex: false,
+    editedFormId: id,
+    formToEdit: form
+  });
+}
 
   render(){
 
@@ -193,7 +195,7 @@ class App extends Component {
 
                 <div className="row">
                   <div className="twelve columns">
-                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} formToEdit={this.state.formToEdit} renderEditForm={this.renderEditForm} navigateToIndex={this.navigateToIndex}/>
+                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} getFormToEdit={this.state.getFormToEdit} renderEditForm={this.renderEditForm} formToEdit={this.state.formToEdit} navigateToIndex={this.navigateToIndex} />
                   </div>
                 </div>
               </div>

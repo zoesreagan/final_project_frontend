@@ -81,8 +81,8 @@ class UserFormContainer extends Component {
 //edit the form
     editForm = async (dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine) => {
       const id = this.props.editedFormId
-      const form = await fetch('http://localhost:9292/form', {
-        method: 'POST',
+      const form = await fetch('http://localhost:9292/form/' + id, {
+        method: 'PUT',
         credentials: 'include',
         body: JSON.stringify({
           date_created: dateCreated,
@@ -97,7 +97,6 @@ class UserFormContainer extends Component {
           response_9: responseNine
         })
       })
-
 
     const response = await form.json();
     console.log(response);
@@ -140,7 +139,7 @@ class UserFormContainer extends Component {
                 <AddNewForm addedForm={this.state.addedForm} createForm={this.createForm} navigateToIndex={this.navigateToIndex} />
                  : <div>
                    {this.props.showFormIndex ?
-                     <FormIndex form={this.state.form} deleteForm={this.deleteForm} />
+                     <FormIndex form={this.state.form} deleteForm={this.deleteForm} renderEditForm={this.props.renderEditForm} editedFormId={this.props.editedFormId} getFormToEdit={this.props.getFormToEdit} formToEdit={this.props.formToEdit} />
                      :<div>
                        {this.props.showEditForm ?
                        <EditForm editForm={this.editForm} formToEdit={this.props.formToEdit} />
