@@ -27,12 +27,10 @@ class AddNewForm extends Component {
 		this.setState({
 			[name]: value
 		})
-    console.log(this.state);
 	}
 
   handleSubmit = (e) => {
 		e.preventDefault();
-    console.log("button being clicked");
 		this.props.createForm(this.state.dateCreated, this.state.responseOne, this.state.responseTwo, this.state.responseThree, this.state.responseFour, this.state.responseFive, this.state.responseSix, this.state.responseSeven, this.state.responseEight, this.state.responseNine)
 	}
 
@@ -98,21 +96,6 @@ class AddNewForm extends Component {
             <label>Enter your response below</label>
             <input type="text" name="responseThree" value={this.state.responseThree} onChange={this.handleInput} /><br />
 
-            {/* <input type="text" name="responseFour" value={this.state.responseFour} onChange={this.handleInput} /> <br />
-
-
-            <input type="text" name="responseFive" value={this.state.responseFive} onChange={this.handleInput} /> <br />
-
-
-            <input type="text" name="responseSix" value={this.state.responseSix} onChange={this.handleInput} /> <br />
-
-            <input type="text" name="responseSeven" value={this.state.responseSeven} onChange={this.handleInput} /> <br />
-
-
-            <input type="text" name="responseEight" value={this.state.responseEight} onChange={this.handleInput} /> <br />
-
-
-            <input type="text" name="responseNine" value={this.state.responseNine} onChange={this.handleInput} /> <br /> */}
 
             <button type="submit" className= "button button-primary">Submit</button>
           </form>

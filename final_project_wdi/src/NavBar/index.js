@@ -15,7 +15,7 @@ class Navbar extends Component {
         <div className="container">
           <div className="row">
             <div className="three columns">
-              <button onClick={this.props.openModal}>Learn More</button>
+              <button onClick={this.props.openLearnMorePage}>Learn More</button>
             </div>
 
 

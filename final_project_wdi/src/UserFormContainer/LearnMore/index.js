@@ -1,20 +1,13 @@
 import React, {Component} from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Input, Container } from 'reactstrap';
 
-const LearnMoreModal = (props) => {
+
+const LearnMorePage = (props) => {
+  console.log(props);
   return (
-    <Container>
-      <Modal isOpen={this.props.openModal} className={this.props.className}>
-
-        <ModalHeader toggle={this.toggle}>
-						<h2>More Information</h2>
-						<Button color="secondary" onClick={this.props.closeModal}>Cancel</Button>
-					</ModalHeader>
-
-          <ModalBody>
             <div className="container">
               <div className="row">
                 <div className="twleve columns">
+                  	<h2>More Information</h2>
                   <p>Over the years of their diagnosis, people with dementia related to Alzheimer's Disease, Parkinson's Disease and other neurological conditions
                     lose their memory and completely lose the ability to understand what's
                     going on around them.</p>
@@ -25,12 +18,8 @@ const LearnMoreModal = (props) => {
                 </div>
               </div>
             </div>
-          </ModalBody>
-        </Modal>
-    </Container>
-
   )
 }
 
 
-export default LearnMoreModal;
+export default LearnMorePage;

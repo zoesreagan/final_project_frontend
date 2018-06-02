@@ -14,6 +14,7 @@ class App extends Component {
     loginError: '',
     user_id: '',
     first_name: '',
+    last_name: '',
     username: '',
     formShow: false,
     formToShow: [],
@@ -23,8 +24,7 @@ class App extends Component {
     showNewForm: false,
     showFormIndex: true,
     showEditForm: false,
-    showMoreInfo: false,
-    openModal: false
+    showMoreInfo: false
     }
   }
 
@@ -50,7 +50,7 @@ class App extends Component {
     }
   };
 
-  register = async (first_name, last_name, username, password, birth_date) => {
+  register = async (first_name, last_name, username, password) => {
     const userRegister = await fetch('http://localhost:9292/user/register', {
       method: 'POST',
       credentials: 'include',
@@ -59,14 +59,27 @@ class App extends Component {
         last_name: last_name,
         username: username,
         password: password
-        // birth_date: birth_date
+
       })
     })
     const registrationResponse = await userRegister.json();
+
     if(registrationResponse.success){
       this.setState({
         loggedIn: true,
+        showFormIndex: true
       })
+
+      // .then((user) => {
+      //   this.setState({
+      //     user_id: user.found_user.id,
+      //     first_name: user.found_user.first_name,
+      //     username: user.found_user.username
+      //   })
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // })
     } else {
       this.setState({
         loginError: registrationResponse.message
@@ -95,8 +108,7 @@ class App extends Component {
       showNewForm: true,
       showFormIndex: false,
       showEditForm: false,
-      showMoreInfo: false,
-      openModal: false
+      showMoreInfo: false
     })
   }
 
@@ -106,27 +118,22 @@ class App extends Component {
       formShow: false,
       showEditForm: false,
       showFormIndex: true,
-      showMoreInfo: false,
-      openModal: false
+      showMoreInfo: false
+
     })
   };
 
 
-  openModal = (e) => {
+  openLearnMorePage = (e) => {
+    console.log("button being clicked!");
     this.setState({
       showNewForm: false,
       showFormIndex: false,
       showEditForm: false,
-      showMoreInfo: false,
-      openModal: true
+      showMoreInfo: true
     })
   };
 
-  closeModal = (e) => {
-      this.setState({
-        openModal: false
-      })
-    };
 
   getFormToEdit = async () => {
     const id = this.state.editedFormId;
@@ -179,7 +186,7 @@ class App extends Component {
 
               <div className="row">
                 <div className="twelve columns">
-                  <Navbar renderAddNewUserForm={this.renderAddNewUserForm} showNewForm={this.state.showNewForm} navigateToIndex={this.navigateToIndex} openModal={this.openModal} logout={this.logout}/>
+                  <Navbar renderAddNewUserForm={this.renderAddNewUserForm} showNewForm={this.state.showNewForm} showMoreInfo={this.state.showMoreInfo} navigateToIndex={this.navigateToIndex} openLearnMorePage={this.openLearnMorePage} logout={this.logout}/>
                   </div>
                 </div>
 
@@ -195,7 +202,7 @@ class App extends Component {
 
                 <div className="row">
                   <div className="twelve columns">
-                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} getFormToEdit={this.state.getFormToEdit} renderEditForm={this.renderEditForm} formToEdit={this.state.formToEdit} navigateToIndex={this.navigateToIndex} />
+                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} getFormToEdit={this.state.getFormToEdit} renderEditForm={this.renderEditForm} formToEdit={this.state.formToEdit} navigateToIndex={this.navigateToIndex} openLearnMorePage={this.openLearnMorePage}/>
                   </div>
                 </div>
               </div>

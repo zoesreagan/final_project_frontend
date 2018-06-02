@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import "./style.css";
 import AddNewForm from './AddNewFormContainer';
 import FormIndex from './FormIndex';
-import EditForm from './EditFormContainer'
+import EditForm from './EditFormContainer';
+import LearnMorePage from './LearnMore';
 
 class UserFormContainer extends Component {
   constructor(){
@@ -29,20 +30,13 @@ class UserFormContainer extends Component {
     const formJson = await fetch('http://localhost:9292/form', {
       credentials: 'include'
     });
-
-    console.log(formJson);
-
     const form = await formJson.json();
-
-    console.log(form, 'this is form from getFormByUser');
-
     return form;
-    console.log(this.state.form, " this is state after getFormByUser")
   }
 
 //create the form
   createForm = async (dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine) => {
-    console.log( dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine)
+
     const form = await fetch('http://localhost:9292/form', {
       method: 'POST',
       credentials: 'include',
@@ -50,20 +44,12 @@ class UserFormContainer extends Component {
         date_created: dateCreated,
         response_1: responseOne,
         response_2: responseTwo,
-        response_3: responseThree,
-        response_4: responseFour,
-        response_5: responseFive,
-        response_6: responseSix,
-        response_7: responseSeven,
-        response_8: responseEight,
-        response_9: responseNine
+        response_3: responseThree
       })
     });
 
 
     const formParsed = await form.json();
-
-		console.log(formParsed);
 
     this.props.navigateToIndex()
 		this.getFormByUser()
@@ -77,7 +63,6 @@ class UserFormContainer extends Component {
   }
 
 
-
 //edit the form
     editForm = async (dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine) => {
       const id = this.props.editedFormId
@@ -88,13 +73,7 @@ class UserFormContainer extends Component {
           date_created: dateCreated,
           response_1: responseOne,
           response_2: responseTwo,
-          response_3: responseThree,
-          response_4: responseFour,
-          response_5: responseFive,
-          response_6: responseSix,
-          response_7: responseSeven,
-          response_8: responseEight,
-          response_9: responseNine
+          response_3: responseThree
         })
       })
 
@@ -144,6 +123,12 @@ class UserFormContainer extends Component {
                        {this.props.showEditForm ?
                        <EditForm editForm={this.editForm} formToEdit={this.props.formToEdit} />
                         : <div>
+                          {this.props.showLearnMore ?
+                          <LearnMorePage openLearnMorePage={this.props.openLearnMorePage} />
+                          :<div>
+
+                          </div>
+                        }
                       </div>
                       }
                     </div>
