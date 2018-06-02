@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import "./style.css";
-// import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import AddNewForm from './AddNewFormContainer';
 import FormIndex from './FormIndex';
 import EditForm from './EditFormContainer'
@@ -26,7 +25,6 @@ class UserFormContainer extends Component {
 
   }
 
-
   getFormByUser = async () => {
     const formJson = await fetch('http://localhost:9292/form', {
       credentials: 'include'
@@ -42,6 +40,7 @@ class UserFormContainer extends Component {
     console.log(this.state.form, " this is state after getFormByUser")
   }
 
+//create the form
   createForm = async (dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine) => {
     console.log( dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine)
     const form = await fetch('http://localhost:9292/form', {
@@ -59,9 +58,27 @@ class UserFormContainer extends Component {
         response_8: responseEight,
         response_9: responseNine
       })
-    })
+    });
+
+
+    const formParsed = await form.json();
+
+		console.log(formParsed);
+
+    this.props.navigateToIndex()
+		this.getFormByUser()
+			.then((response) => {
+				this.setState({form: response.form})
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+
   }
 
+
+
+//edit the form
     editForm = async (dateCreated, responseOne, responseTwo, responseThree, responseFour, responseFive, responseSix, responseSeven, responseEight, responseNine) => {
       const id = this.props.editedFormId
       const form = await fetch('http://localhost:9292/form', {
@@ -84,7 +101,7 @@ class UserFormContainer extends Component {
 
     const response = await form.json();
     console.log(response);
-    this.props.closeEditTrip()
+    this.props.navigateToIndex()
     this.getFormByUser()
     .then((response) => {
 
@@ -96,6 +113,7 @@ class UserFormContainer extends Component {
     })
   };
 
+//delete the form
   deleteForm = async (e) => {
 		e.preventDefault();
 		const id = parseInt(e.target.parentNode.id)
@@ -119,21 +137,24 @@ class UserFormContainer extends Component {
           <div className="twelve columns">
               <div>
                 {this.props.showNewForm ?
-                <AddNewForm addedForm={this.state.addedForm} createForm={this.createForm} />
+                <AddNewForm addedForm={this.state.addedForm} createForm={this.createForm} navigateToIndex={this.navigateToIndex} />
                  : <div>
-                   {this.props.showEditForm ?
-                   <EditForm editForm={this.editForm} formToEdit={this.props.formToEdit} />
-                   : <div>
+                   {this.props.showFormIndex ?
                      <FormIndex form={this.state.form} deleteForm={this.deleteForm} />
-                  </div>
-                }
+                     :<div>
+                       {this.props.showEditForm ?
+                       <EditForm editForm={this.editForm} formToEdit={this.props.formToEdit} />
+                        : <div>
+                      </div>
+                      }
+                    </div>
+                  }
                  </div>
                }
-               </div>
-
-           </div>
+            </div>
          </div>
        </div>
+     </div>
 
     )
   }

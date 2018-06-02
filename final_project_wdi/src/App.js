@@ -19,18 +19,13 @@ class App extends Component {
     formToShow: [],
     showNewForm: '',
     editedFormId: '',
-    tripToEdit: ''
+    tripToEdit: '',
+    showNewForm: false,
+    showFormIndex: true,
+    showEditForm: false,
+    showMoreInfo: false,
+    openModal: false
     }
-  }
-
-  componentDidMount(){
-    // this.getFormByUser()
-    // .then((response) => {
-    //   this.setState({form: response.form})
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // })
   }
 
   login = async (username, password) => {
@@ -198,7 +193,7 @@ class App extends Component {
 
                 <div className="row">
                   <div className="twelve columns">
-                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} formToEdit={this.state.formToEdit} renderEditForm={this.renderEditForm}/>
+                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} formToEdit={this.state.formToEdit} renderEditForm={this.renderEditForm} navigateToIndex={this.navigateToIndex}/>
                   </div>
                 </div>
               </div>

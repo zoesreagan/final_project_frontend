@@ -32,7 +32,7 @@ class AddNewForm extends Component {
 
   handleSubmit = (e) => {
 		e.preventDefault();
-    console.log(this.state, "this is state", this.props, "this is props");
+    console.log("button being clicked");
 		this.props.createForm(this.state.dateCreated, this.state.responseOne, this.state.responseTwo, this.state.responseThree, this.state.responseFour, this.state.responseFive, this.state.responseSix, this.state.responseSeven, this.state.responseEight, this.state.responseNine)
 	}
 
