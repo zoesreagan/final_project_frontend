@@ -5,7 +5,13 @@ body {
 
 #AppContainer {
   margin: 5vh;
+  padding: 6vh;
   background-color: rgb(254, 255, 254);
-  height: 90%;
+  height: 100%;
   text-align: center;
+}
+
+#logo {
+  width: 100%;
+  height: 100%;
 }

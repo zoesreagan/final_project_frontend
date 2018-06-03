@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import logo from './logo.png'
 import UserFormContainer from './UserFormContainer';
 import Navbar from './NavBar';
 import LoginRegister from './LoginRegister'
@@ -168,19 +169,27 @@ class App extends Component {
 
     return(
       <div className="App">
+        <div className="container">
+          <div className="row">
+            <div className="twelve columns">
+              <img id="logo" src={logo} alt={"logo"}/>
+            </div>
+          </div>
+        </div>
+
+
         <div id="AppContainer">
-          <h2>Welcome to Behest</h2>
-          <h5>Advanced Directives for Dementia Related Conditions</h5>
 
           {this.state.loggedIn ?
 
             <div className="container">
 
-                <div className="row">
+                {/* <div className="row">
                   <div className="twelve columns">
+
                     <br />
                   </div>
-                </div>
+                </div> */}
 
               <div className="row">
                 <div className="twelve columns">
