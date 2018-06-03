@@ -24,7 +24,7 @@ class App extends Component {
     showNewForm: false,
     showFormIndex: true,
     showEditForm: false,
-    showMoreInfo: false
+    showMoreInfo: ''
     }
   }
 
@@ -105,6 +105,7 @@ class App extends Component {
   renderAddNewUserForm = () => {
     this.setState({
       showNewForm: true,
+      formShow: false,
       showFormIndex: false,
       showEditForm: false,
       showMoreInfo: false
@@ -127,10 +128,12 @@ class App extends Component {
     console.log("button being clicked!");
     this.setState({
       showNewForm: false,
+      formShow: false,
       showFormIndex: false,
       showEditForm: false,
       showMoreInfo: true
     })
+    console.log(this.state);
   };
 
 
@@ -149,7 +152,7 @@ class App extends Component {
 
   renderEditForm = async (e) => {
     const id = e.currentTarget.parentNode.id;
-    console.log(id, "<------THIS IS ID");
+    // console.log(id, "<------THIS IS ID");
 
     const formJson = await fetch('http://localhost:9292/form/' + id, {
       credentials: 'include'
@@ -184,13 +187,6 @@ class App extends Component {
 
             <div className="container">
 
-                {/* <div className="row">
-                  <div className="twelve columns">
-
-                    <br />
-                  </div>
-                </div> */}
-
               <div className="row">
                 <div className="twelve columns">
                   <Navbar renderAddNewUserForm={this.renderAddNewUserForm} showNewForm={this.state.showNewForm} showMoreInfo={this.state.showMoreInfo} navigateToIndex={this.navigateToIndex} openLearnMorePage={this.openLearnMorePage} logout={this.logout}/>
@@ -209,15 +205,20 @@ class App extends Component {
 
                 <div className="row">
                   <div className="twelve columns">
-                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} editedFormId={this.state.editedFormId} getFormToEdit={this.state.getFormToEdit} renderEditForm={this.renderEditForm} formToEdit={this.state.formToEdit} navigateToIndex={this.navigateToIndex} openLearnMorePage={this.openLearnMorePage}/>
+                  <UserFormContainer showNewForm={this.state.showNewForm} showFormIndex={this.state.showFormIndex} showEditForm={this.state.showEditForm} showMoreInfo={this.state.showMoreInfo} editedFormId={this.state.editedFormId} getFormToEdit={this.state.getFormToEdit} renderEditForm={this.renderEditForm} formToEdit={this.state.formToEdit} navigateToIndex={this.navigateToIndex} openLearnMorePage={this.openLearnMorePage}/>
                   </div>
                 </div>
               </div>
 
             : <LoginRegister login={this.login} register={this.register} loginError={this.state.loginError} logout={this.logout}/>
             }
-          </div>
 
+            <footer>
+              <small>Based on the <a href="https://dementia-directive.org/">Dementia Directive</a>, created by Dr. Barak Gaster at the University of Washington.<br/>
+                     &copy; Zoe Skye, 2018</small>
+            </footer>
+
+          </div>
 
         </div>
       )

@@ -2,11 +2,11 @@ import React, {Component} from "react";
 
 
 const LearnMorePage = (props) => {
-  console.log(props);
+  console.log("learn more being rendred");
   return (
             <div className="container">
               <div className="row">
-                <div className="twleve columns">
+                <div className="twelve columns">
                   	<h2>More Information</h2>
                   <p>Over the years of their diagnosis, people with dementia related to Alzheimer's Disease, Parkinson's Disease and other neurological conditions
                     lose their memory and completely lose the ability to understand what's

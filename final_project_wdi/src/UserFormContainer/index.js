@@ -10,8 +10,7 @@ class UserFormContainer extends Component {
     this.state={
       form: [],
       addedForm: '',
-      formToEdit: '',
-      showMoreInfo: false
+      formToEdit: ''
     }
   }
 
@@ -124,7 +123,7 @@ class UserFormContainer extends Component {
                        <EditForm editForm={this.editForm} formToEdit={this.props.formToEdit} />
                         : <div>
                           {this.props.showLearnMore ?
-                          <LearnMorePage showMoreInfo={this.state.showMoreInfo} openLearnMorePage={this.props.openLearnMorePage} />
+                          <LearnMorePage openLearnMorePage={this.openLearnMorePage} />
                           :<div>
 
                           </div>

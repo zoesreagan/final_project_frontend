@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../style.css';
+import './style.css';
 
 class EditForm extends Component {
   constructor(props) {
@@ -43,33 +43,40 @@ class EditForm extends Component {
       <div>
         <h2>Update My Dementia Directives</h2>
           <form onSubmit={this.handleSubmit}>
-            <h3>Why it's important to express your wishes</h3>
-              <h4>People with advancing dementia lose the ability to make decisions for
-                themselves.<br />
-                Their families need to make medical decisions for them.<br />
-                Giving family members guidance about what kind of care you'd want if you
-                were to develop worsening dementia can ease the burden of their decision
-                making and make you feel more secure that you'll receive the care that you
-                would want.<br />
-                Your guidance today will help the people taking care of you in the future. </h4>
+            <h3>Why it's important to express your wishes:</h3>
+            <h4>People with advancing dementia lose the ability to make decisions for
+              themselves.<br /><br />
+              Their families need to make medical decisions for them.<br /><br /></h4>
+
+            <h5>Giving family members guidance about what kind of care you'd want if you
+              were to develop worsening dementia can ease the burden of their decision
+              making and make you feel more secure that you'll receive the care that you
+              would want.</h5><br /><br />
+
+            <h4>Your guidance today will help the people taking care of you in the future.</h4><br /><br />
             <h5>Please enter today's date.</h5>
             <input type="date" name="dateCreated" value={this.state.dateCreated} onChange={this.handleInput} /><br />
-            <h5>When answering these questions below, keep these responses in mind:</h5>
+            <h5>When answering these questions below, keep these four responses in mind:</h5>
             <ul>
               <li><b>To live for as long as I could.</b><br />
-                    I would want full efforts to prolong my life, including efforts to restart my heart if it stops beating. </li>
-              <li><b> To receive treatments to prolong my life, but if my heart stops beating or I can’t breathe on my own then do not shock my heart to restart it (DNR) and do not place me on a breathing machine.</b><br /> Instead, if either of these happens, allow me to die peacefully. Reason why: if I took such a sudden turn for the worse then my
-                      dementia would likely be worse if I survived, and this would not be an acceptable quality of life for me. </li>
+                  <h6>I would want full efforts to prolong my life, including efforts to restart my heart if it stops beating. </h6></li>
+
+              <li><b> To receive treatments to prolong my life, but if my heart stops beating or I can’t breathe on my own then do not shock my heart to restart it (DNR) and do not place me on a breathing machine.</b><br />
+                  <h6>Instead, if either of these happens, allow me to die peacefully. Reason why: if I took such a sudden turn for the worse then my
+                      dementia would likely be worse if I survived, and this would not be an acceptable quality of life for me. </h6></li>
+
               <li><b>To only receive care in the place where I am living.<br />
                       I would not want to go to the hospital even if I were very ill,
                       and I would not want to be resuscitated (DNR).</b><br />
-                      If a treatment, such as antibiotics, might keep me alive longer and could be given in
+
+                  <h6>If a treatment, such as antibiotics, might keep me alive longer and could be given in
                       the place where I was living, then I would want such care.<br />
                       But if I continued to get worse, I would not want to go to an emergency room or a hospital. Instead, I
                       would want to be allowed to die peacefully. <br />
-                      Reason why: I would not want the possible risks and trauma which can come from being in the hospital. </li>
+                      Reason why: I would not want the possible risks and trauma which can come from being in the hospital. </h6></li>
+
               <li><b>To receive comfort-oriented care only, focused on relieving my suffering such as pain, anxiety, or breathlessness.</b><br />
-                    I would not want any care that would keep me longer.</li>
+                  <h6>I would not want any care that would keep me longer.</h6></li>
             </ul>
 
 
