@@ -42,7 +42,11 @@ class LoginRegister extends Component{
 	render(){
 		return(
 			<div>
-				<button className={this.state.registering ? "current" : null} className="button" onClick={this.registration}>Create new user</button>
+				<h2>If you are a new user, please register.</h2>
+
+				<h3>If you are a returning user, please log in.</h3>
+
+				<button className={this.state.registering ? "current" : null} className="button" onClick={this.registration}>Create new user</button><br />
 				<button className={this.state.registering ? null : "current"} className="button" onClick={this.login}>Login</button>
 
 				<form onSubmit={this.handleSubmit}>

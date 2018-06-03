@@ -4,7 +4,6 @@ import "../style.css";
 
 const FormIndex = (props) => {
 	const form = props.form
-	console.log(form, "this is the form");
 
 	const formList = form.map((form, i) => {
 		return (
@@ -44,12 +43,7 @@ const FormIndex = (props) => {
                    People need round-the-clock help with all daily activities.</h6>
                    <h5>My wishes:</h5>
                    <li>{form.response_3}</li>
-                 {/* <li>{form.response_4}</li>
-                 <li>{form.response_5}</li>
-                 <li>{form.response_6}</li>
-                 <li>{form.response_7}</li>
-                 <li>{form.response_8}</li>
-                 <li>{form.response_9}</li> */}
+
 						<button className="button button-primary" onClick={props.renderEditForm}>Edit Form</button><br /><br />
 						<button onClick={props.deleteForm}>Delete Form</button><br />
           </ul>

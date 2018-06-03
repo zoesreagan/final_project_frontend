@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 import '../style.css';
 
 class AddNewForm extends Component {
@@ -76,7 +75,7 @@ class AddNewForm extends Component {
                 yourself? </h6>
 
             <label>Enter your response below</label>
-            <input type="text" name="responseOne" value={this.state.responseOne} onChange={this.handleInput} /> <br />
+            <textarea  name="responseOne" value={this.state.responseOne} onChange={this.handleInput} /> <br />
 
             <h5>Stage 2 -- Moderate dementia</h5>
             <h6>People lose the ability to have conversations, and communication becomes very limited.<br />
@@ -85,7 +84,7 @@ class AddNewForm extends Component {
               If you were at this stage of dementia what level of medical care would you want? </h6>
 
             <label>Enter your reponse below</label>
-            <input type="text" name="responseTwo" value={this.state.responseTwo} onChange={this.handleInput} /> <br />
+            <textarea name="responseTwo" value={this.state.responseTwo} onChange={this.handleInput} /> <br />
 
             <h5>Stage 3 -- Severe dementia</h5>
             <h6>People are no longer able to recognize loved ones and family members. People may be
@@ -94,7 +93,7 @@ class AddNewForm extends Component {
               agitated at times, and sometimes even violent toward people they love.<br />
               People need round-the-clock help with all daily activities.</h6>
             <label>Enter your response below</label>
-            <input type="text" name="responseThree" value={this.state.responseThree} onChange={this.handleInput} /><br />
+            <textarea name="responseThree" value={this.state.responseThree} onChange={this.handleInput} /><br />
 
 
             <button type="submit" className= "button button-primary">Submit</button>

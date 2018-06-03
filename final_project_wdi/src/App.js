@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import LearnMoreModal from './UserFormContainer/LearnMore';
 import UserFormContainer from './UserFormContainer';
 import Navbar from './NavBar';
 import LoginRegister from './LoginRegister'
@@ -90,7 +89,6 @@ class App extends Component {
   logout = async (username, password) => {
     const userLogout = await fetch('http://localhost:9292/user/logout', {
     });
-    // console.log(userLogout, "logout button being clicked");
     const logoutResponse = await userLogout.json();
     if(logoutResponse.success){
       this.setState({

@@ -11,7 +11,8 @@ class UserFormContainer extends Component {
     this.state={
       form: [],
       addedForm: '',
-      formToEdit: ''
+      formToEdit: '',
+      showMoreInfo: false
     }
   }
 
@@ -77,19 +78,19 @@ class UserFormContainer extends Component {
         })
       })
 
-    const response = await form.json();
-    console.log(response);
-    this.props.navigateToIndex()
-    this.getFormByUser()
-    .then((response) => {
+      const response = await form.json();
+      console.log(response);
+      this.props.navigateToIndex()
+      this.getFormByUser()
+      .then((response) => {
 
-      this.setState({form: response.form})
-      }
-    )
-    .catch((err) => {
-      console.log(err);
-    })
-  };
+        this.setState({form: response.form})
+        }
+      )
+      .catch((err) => {
+        console.log(err);
+      })
+    };
 
 //delete the form
   deleteForm = async (e) => {
@@ -124,7 +125,7 @@ class UserFormContainer extends Component {
                        <EditForm editForm={this.editForm} formToEdit={this.props.formToEdit} />
                         : <div>
                           {this.props.showLearnMore ?
-                          <LearnMorePage openLearnMorePage={this.props.openLearnMorePage} />
+                          <LearnMorePage showMoreInfo={this.state.showMoreInfo} openLearnMorePage={this.props.openLearnMorePage} />
                           :<div>
 
                           </div>
