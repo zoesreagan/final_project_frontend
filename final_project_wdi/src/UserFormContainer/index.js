@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import "./style.css";
 import AddNewForm from './AddNewFormContainer';
 import FormIndex from './FormIndex';
 import EditForm from './EditFormContainer';
